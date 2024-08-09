@@ -4,6 +4,7 @@ import logo from './assets/images/logo-universal.png';
 import './App.css';
 import { Greet, GetAllClipBoardItems, AddClipBoardItem } from "../wailsjs/go/main/App";
 import { ClipboardItemDbRow } from './types/clipboard'; // Import the TypeScript types
+import { AiFillFire } from "react-icons/ai"
 
 function App() {
     const [resultText, setResultText] = useState("Please enter content for the clipboard below 👇");
@@ -61,6 +62,7 @@ function App() {
                 <ul>
                     {clipboardItems.map(item => (
                         <li key={item.id}>
+                            <AiFillFire className="icon" />
                             <p><strong>Content:</strong> {item.content}</p>
                             <p><strong>Type:</strong> {item.type}</p>
                             <p><strong>Categories:</strong> {item.categories}</p>
