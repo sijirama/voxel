@@ -81,6 +81,11 @@ func (a *App) GetAllClipBoardItems() ([]store.ClipboardItemDbRow, error) {
 }
 
 // DeleteClipBoardItemById deletes a clipboard item by its ID
+
+func (a *App) DeleteClipBoardItem(id int) error {
+	return a.DeleteClipBoardItemById(id)
+}
+
 func (a *App) DeleteClipBoardItemById(id int) error {
 	err := store.DeleteClipboardItemById(id)
 	if err != nil {
@@ -105,4 +110,8 @@ func (a *App) UpdateClipBoardItemById(id int, content string, categories []strin
 		return fmt.Errorf("failed to update clipboard item: %v", err)
 	}
 	return nil
+}
+
+func (a *App) GetClipboardContent() string {
+	return "This is a clipboard item from the backend"
 }

@@ -6,6 +6,10 @@ export function AddClipBoardItem(arg1, arg2, arg3) {
   return window['go']['main']['App']['AddClipBoardItem'](arg1, arg2, arg3);
 }
 
+export function DeleteClipBoardItem(arg1) {
+  return window['go']['main']['App']['DeleteClipBoardItem'](arg1);
+}
+
 export function DeleteClipBoardItemById(arg1) {
   return window['go']['main']['App']['DeleteClipBoardItemById'](arg1);
 }
@@ -16,6 +20,10 @@ export function GetAllClipBoardItems() {
 
 export function GetClipBoardItemById(arg1) {
   return window['go']['main']['App']['GetClipBoardItemById'](arg1);
+}
+
+export function GetClipboardContent() {
+  return window['go']['main']['App']['GetClipboardContent']();
 }
 
 export function Greet(arg1) {

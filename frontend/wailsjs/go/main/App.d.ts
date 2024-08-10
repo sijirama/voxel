@@ -4,11 +4,15 @@ import {store} from '../models';
 
 export function AddClipBoardItem(arg1:string,arg2:Array<string>,arg3:string):Promise<void>;
 
+export function DeleteClipBoardItem(arg1:number):Promise<void>;
+
 export function DeleteClipBoardItemById(arg1:number):Promise<void>;
 
 export function GetAllClipBoardItems():Promise<Array<store.ClipboardItemDbRow>>;
 
 export function GetClipBoardItemById(arg1:number):Promise<store.ClipboardItemDbRow>;
+
+export function GetClipboardContent():Promise<string>;
 
 export function Greet(arg1:string):Promise<string>;
 
