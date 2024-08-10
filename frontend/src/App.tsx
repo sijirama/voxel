@@ -149,7 +149,7 @@ const ClipboardManager: React.FC = () => {
     return (
         <div className="bg-gray-900 text-white min-h-screen p-4">
             <div className="max-w-2xl mx-auto">
-                <h1 className="text-2xl font-bold mb-4">Clipboard History</h1>
+                <h1 className="text-2xl font-bold mb-4">History</h1>
 
                 <div className="mb-4 flex space-x-2">
                     <Input
