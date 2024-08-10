@@ -76,7 +76,7 @@ const ClipboardManager: React.FC = () => {
             const $ = cheerio.load(html);
 
             // Extract the metadata
-            const title = $('head > title').text() || "No title found";
+            const title = $('head > title').text() || url;
             const description = $('meta[name="description"]').attr('content') || "No description found";
             let favicon = $('link[rel="icon"]').attr('href') || $('link[rel="shortcut icon"]').attr('href');
 
@@ -178,7 +178,7 @@ const ClipboardManager: React.FC = () => {
                 <ScrollArea className="h-[calc(100vh-220px)]">
                     <div className="space-y-2">
                         {filteredItems.map((item) => (
-                            <div key={item.id} className="bg-gray-800 rounded-lg p-3 flex items-center space-x-3">
+                            <div key={item.id} className="bg-gray-800 rounded-md p-3 flex items-center space-x-3">
                                 {item.type.startsWith('image/') ? (
                                     <AiOutlineFileImage className="text-xl text-blue-500 flex-shrink-0" />
                                 ) : item.type === 'link' ? (
@@ -186,7 +186,7 @@ const ClipboardManager: React.FC = () => {
                                 ) : (
                                     <AiOutlineFile className="text-xl text-gray-500 flex-shrink-0" />
                                 )}
-                                <div className="flex-grow min-w-0">
+                                <div className="flex flex-wrap min-w-0">
                                     {renderClipboardItem(item)}
                                 </div>
                                 <Button
