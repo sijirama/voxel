@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/atotto/clipboard"
 	"log"
 	"time"
 	"voxel/store"
@@ -73,9 +74,9 @@ func (a *App) GetAllClipBoardItems() ([]store.ClipboardItemDbRow, error) {
 		return nil, fmt.Errorf("failed to get all clipboard items: %v", err)
 	}
 
-	for _, item := range items {
-		fmt.Printf("Clipboard things %s", item.Content)
-	}
+	// for _, item := range items {
+	// 	fmt.Printf("Clipboard things %s", item.Content)
+	// }
 
 	return items, nil
 }
@@ -113,5 +114,15 @@ func (a *App) UpdateClipBoardItemById(id int, content string, categories []strin
 }
 
 func (a *App) GetClipboardContent() string {
-	return "This is a clipboard item from the backend"
+	currentItem, err := clipboard.ReadAll()
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	if currentItem != "" {
+		return currentItem
+	}
+
+	return ""
 }

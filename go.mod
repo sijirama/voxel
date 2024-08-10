@@ -1,10 +1,11 @@
 module voxel
 
-go 1.21
+go 1.21.3
 
 toolchain go1.22.2
 
 require (
+	github.com/atotto/clipboard v0.1.4
 	github.com/mattn/go-sqlite3 v1.14.22
 	github.com/wailsapp/wails/v2 v2.9.1
 )
