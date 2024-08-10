@@ -6,6 +6,8 @@ import { AiOutlineCopy, AiOutlineLink, AiOutlineFile, AiOutlineFileImage, AiOutl
 import { MdContentPaste } from "react-icons/md";
 import { GetAllClipBoardItems, AddClipBoardItem, DeleteClipBoardItem, GetClipboardContent } from "../wailsjs/go/main/App";
 import { ClipboardItemDbRow } from './types/clipboard';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
 
 interface LinkMetadata {
     title: string | null;
@@ -67,17 +69,39 @@ const ClipboardManager: React.FC = () => {
     );
 
     const fetchLinkMetadata = async (url: string): Promise<LinkMetadata> => {
-        // In a real application, you'd want to implement this on the backend
-        // For demonstration, we'll just return a mock object
-        return {
-            title: "Sample Title",
-            description: "This is a sample description for the link.",
-            favicon: "https://example.com/favicon.ico"
-        };
+        try {
+            const { data: html } = await axios.get(url);
+
+            // Load the HTML into cheerio
+            const $ = cheerio.load(html);
+
+            // Extract the metadata
+            const title = $('head > title').text() || "No title found";
+            const description = $('meta[name="description"]').attr('content') || "No description found";
+            let favicon = $('link[rel="icon"]').attr('href') || $('link[rel="shortcut icon"]').attr('href');
+
+            // Handle relative favicon URLs
+            if (favicon && !favicon.startsWith('http')) {
+                const urlObject = new URL(url);
+                favicon = `${urlObject.origin}${favicon}`;
+            } else if (!favicon) {
+                // Provide a default favicon or handle no favicon scenario
+                favicon = "No favicon found";
+            }
+
+            return {
+                title,
+                description,
+                favicon
+            };
+        } catch (error) {
+            console.error(`Error fetching metadata for URL ${url}:`, error);
+            throw new Error(`Unable to fetch metadata for the provided URL`);
+        }
     };
 
     const renderClipboardItem = (item: ClipboardItemDbRow) => {
-        if (item.type.startsWith('image/') || (item.type === 'link' && item.content.match(/\.(jpeg|jpg|gif|png)$/))) {
+        if (item.type.startsWith('image/') || (item.type === 'link' && item.content.match(/\.(jpeg|jpg|gif|png|media)$/))) {
             return (
                 <div className="relative w-full h-40">
                     <img
