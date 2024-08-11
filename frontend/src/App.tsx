@@ -72,15 +72,12 @@ const ClipboardManager: React.FC = () => {
         try {
             const { data: html } = await axios.get(url);
 
-            // Load the HTML into cheerio
             const $ = cheerio.load(html);
 
-            // Extract the metadata
             const title = $('head > title').text() || url;
-            const description = $('meta[name="description"]').attr('content') || "No description found";
+            const description = $('meta[name="description"]').attr('content') || ''
             let favicon = $('link[rel="icon"]').attr('href') || $('link[rel="shortcut icon"]').attr('href');
 
-            // Handle relative favicon URLs
             if (favicon && !favicon.startsWith('http')) {
                 const urlObject = new URL(url);
                 favicon = `${urlObject.origin}${favicon}`;
@@ -118,7 +115,7 @@ const ClipboardManager: React.FC = () => {
         } else if (item.type === 'link') {
             return <LinkItem url={item.content} />;
         } else {
-            return <p className="break-all line-clamp-2">{item.content}</p>;
+            return <p className="break-all text-sm line-clamp-2 bg-gray-700 p-1 rounded-md">{item.content}</p>;
         }
     };
 
@@ -149,7 +146,7 @@ const ClipboardManager: React.FC = () => {
     return (
         <div className="bg-gray-900 text-white min-h-screen p-4">
             <div className="max-w-2xl mx-auto">
-                <h1 className="text-2xl font-bold mb-4">History</h1>
+                <h1 className="text-2xl font-bold mb-4">Voxel</h1>
 
                 <div className="mb-4 flex space-x-2">
                     <Input
@@ -179,32 +176,37 @@ const ClipboardManager: React.FC = () => {
                     <div className="space-y-2">
                         {filteredItems.map((item) => (
                             <div key={item.id} className="bg-gray-800 rounded-md p-3 flex items-center space-x-3">
-                                {item.type.startsWith('image/') ? (
-                                    <AiOutlineFileImage className="text-xl text-blue-500 flex-shrink-0" />
-                                ) : item.type === 'link' ? (
-                                    <AiOutlineLink className="text-xl text-green-500 flex-shrink-0" />
-                                ) : (
-                                    <AiOutlineFile className="text-xl text-gray-500 flex-shrink-0" />
-                                )}
-                                <div className="flex flex-wrap min-w-0">
+                                <div>
+                                    {item.type.startsWith('image/') ? (
+                                        <AiOutlineFileImage className="text-xl text-blue-500 flex-shrink-0" />
+                                    ) : item.type === 'link' ? (
+                                        <AiOutlineLink className="text-xl text-green-500 flex-shrink-0" />
+                                    ) : (
+                                        <AiOutlineFile className="text-xl text-gray-500 flex-shrink-0" />
+                                    )}
+                                </div>
+                                <div className="flex flex-wrap min-w-0 flex-1">
                                     {renderClipboardItem(item)}
                                 </div>
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() => copyToClipboard(item.content)}
-                                    className="text-gray-400 hover:text-white flex-shrink-0"
-                                >
-                                    <AiOutlineCopy className="h-4 w-4" />
-                                </Button>
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() => deleteItem(item.id)}
-                                    className="text-red-400 hover:text-red-600 flex-shrink-0"
-                                >
-                                    <AiOutlineDelete className="h-4 w-4" />
-                                </Button>
+                                <div>
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => copyToClipboard(item.content)}
+                                        className="text-gray-400 hover:text-white flex-shrink-0"
+                                    >
+                                        <AiOutlineCopy
+                                        className="h-6 w-6" />
+                                    </Button>
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => deleteItem(item.id)}
+                                        className="text-red-400 hover:text-red-600 flex-shrink-0"
+                                    >
+                                        <AiOutlineDelete className="h-6 w-6" />
+                                    </Button>
+                                </div>
                             </div>
                         ))}
                     </div>

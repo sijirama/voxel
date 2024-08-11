@@ -123,6 +123,7 @@ func (a *App) GetClipboardContent() string {
 	if currentItem != "" {
 		return currentItem
 	}
+	//NOTE: this is fucking retarded siji, wtf are you even doing lmao
 
 	return ""
 }

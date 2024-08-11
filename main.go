@@ -19,8 +19,8 @@ func main() {
 	err := wails.Run(&options.App{
 		Title: "voxel",
 		//Width:  1024,
-		Width:  700,
-		Height: 808,
+		Width:  600,
+		Height: 708,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
