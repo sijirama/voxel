@@ -9,6 +9,8 @@ Voxel is a simple, lightweight clipboard manager built with Go and React.
 - Effortlessly manage your clipboard history
 - User-friendly interface built with React
 - Lightweight and efficient, powered by Go
+- clipboard watcher (automatically update clipboard list when copy item)
+- persistent: store in a sqlite file
 
 ## Installation
 
@@ -54,7 +56,6 @@ sudo ./uninstall.sh
 
 After installation, you can launch Voxel from your application menu or by typing `voxel` in the terminal (this is only for linux users, thank you)
 
-[Add more specific usage instructions here]
 
 ## Development
 
