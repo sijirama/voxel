@@ -1,19 +1,79 @@
-# README
+# Voxel
 
-## About
+Voxel is a simple, lightweight clipboard manager built with Go and React.
 
-This is the official Wails React-TS template.
+![Voxel Screenshot](assets/voxel.png)
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+## Features
 
-## Live Development
+- Effortlessly manage your clipboard history
+- User-friendly interface built with React
+- Lightweight and efficient, powered by Go
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+## Installation
 
-## Building
+### Prerequisites
 
-To build a redistributable, production mode package, use `wails build`.
+- Go (version 1.16 or later)
+- Node.js and npm
+- Wails (for building the application)
+
+### Building from Source
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/sijirama/voxel.git
+   cd voxel
+   ```
+
+2. Install dependencies:
+   ```
+   go mod tidy
+   cd frontend && npm install && cd ..
+   ```
+
+3. Build the application:
+   ```
+   wails build
+   ```
+
+4. Install the application:
+   ```
+   sudo ./install.sh
+   ```
+
+### Uninstalling
+
+To uninstall Voxel:
+
+```
+sudo ./uninstall.sh
+```
+
+## Usage
+
+After installation, you can launch Voxel from your application menu or by typing `voxel` in the terminal (this is only for linux users, thank you)
+
+[Add more specific usage instructions here]
+
+## Development
+
+This project uses Wails for building a native application with Go and React. To set up your development environment:
+
+1. Install Wails by following the [official Wails installation guide](https://wails.io/docs/gettingstarted/installation).
+
+2. Run the application in development mode:
+   ```
+   wails dev
+   ```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+
+## Acknowledgements
+
+- [Wails](https://wails.io/) for making it easy to build desktop applications with Go and Web Technologies.
+- [React](https://reactjs.org/) for the frontend framework.
+- [Go](https://golang.org/) for the backend language.
