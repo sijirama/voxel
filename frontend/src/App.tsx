@@ -65,7 +65,7 @@ const ClipboardManager: React.FC = () => {
     };
 
     const filteredItems = clipboardItems.filter(item =>
-        item.content.toLowerCase().includes(searchQuery.toLowerCase())
+        item.content.toLowerCase().trim().includes(searchQuery.trim().toLowerCase())
     );
 
     const fetchLinkMetadata = async (url: string): Promise<LinkMetadata> => {
@@ -144,16 +144,16 @@ const ClipboardManager: React.FC = () => {
     };
 
     return (
-        <div className="bg-gray-900 text-white min-h-screen p-4">
+        <div className="bg-[#282828] text-[#ebdbb2] min-h-screen p-4">
             <div className="max-w-2xl mx-auto">
-                <h1 className="text-2xl font-bold mb-4">Voxel</h1>
+                <h1 className="text-2xl font-bold mb-4 text-[#fabd2f]">Voxel</h1>
 
                 <div className="mb-4 flex space-x-2">
                     <Input
                         placeholder="Search clipboard items"
                         value={searchQuery}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
-                        className="bg-gray-800 border-gray-700 text-white flex-grow"
+                        className="bg-[#3c3836] border-[#504945] text-[#ebdbb2] flex-grow"
                     />
                 </div>
 
@@ -162,12 +162,12 @@ const ClipboardManager: React.FC = () => {
                         placeholder="New clipboard item"
                         value={newItemContent}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewItemContent(e.target.value)}
-                        className="bg-gray-800 border-gray-700 text-white flex-grow"
+                        className="bg-[#3c3836] border-[#504945] text-[#ebdbb2] flex-grow"
                     />
-                    <Button onClick={pasteFromClipboard} className="bg-green-600 hover:bg-green-700">
+                    <Button onClick={pasteFromClipboard} className="bg-[#98971a] hover:bg-[#b8bb26]">
                         <MdContentPaste className="mr-2" /> Paste
                     </Button>
-                    <Button onClick={addNewItem} className="bg-blue-600 hover:bg-blue-700">
+                    <Button onClick={addNewItem} className="bg-[#458588] hover:bg-[#83a598]">
                         <AiOutlinePlus className="mr-2" /> Add
                     </Button>
                 </div>
@@ -175,14 +175,14 @@ const ClipboardManager: React.FC = () => {
                 <ScrollArea className="h-[calc(100vh-220px)]">
                     <div className="space-y-2">
                         {filteredItems.map((item) => (
-                            <div key={item.id} className="bg-gray-800 rounded-md p-3 flex items-center space-x-3">
+                            <div key={item.id} className="bg-[#3c3836] rounded-md p-3 flex items-center space-x-3">
                                 <div>
                                     {item.type.startsWith('image/') ? (
-                                        <AiOutlineFileImage className="text-xl text-blue-500 flex-shrink-0" />
+                                        <AiOutlineFileImage className="text-xl text-[#458588] flex-shrink-0" />
                                     ) : item.type === 'link' ? (
-                                        <AiOutlineLink className="text-xl text-green-500 flex-shrink-0" />
+                                        <AiOutlineLink className="text-xl text-[#98971a] flex-shrink-0" />
                                     ) : (
-                                        <AiOutlineFile className="text-xl text-gray-500 flex-shrink-0" />
+                                        <AiOutlineFile className="text-xl text-[#7c6f64] flex-shrink-0" />
                                     )}
                                 </div>
                                 <div className="flex flex-wrap min-w-0 flex-1">
@@ -193,16 +193,16 @@ const ClipboardManager: React.FC = () => {
                                         variant="ghost"
                                         size="sm"
                                         onClick={() => copyToClipboard(item.content)}
-                                        className="text-gray-400 hover:text-white flex-shrink-0"
+                                        className="text-[#ebdbb2] hover:text-[#fe8019] flex-shrink-0"
                                     >
                                         <AiOutlineCopy
-                                        className="h-6 w-6" />
+                                            className="h-6 w-6" />
                                     </Button>
                                     <Button
                                         variant="ghost"
                                         size="sm"
                                         onClick={() => deleteItem(item.id)}
-                                        className="text-red-400 hover:text-red-600 flex-shrink-0"
+                                        className="text-[#cc241d] hover:text-[#fb4934] flex-shrink-0"
                                     >
                                         <AiOutlineDelete className="h-6 w-6" />
                                     </Button>
