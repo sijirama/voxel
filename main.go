@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"embed"
+	"voxel/utils"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -12,22 +14,24 @@ import (
 var assets embed.FS
 
 func main() {
-	// Create an instance of the app structure
 	app := NewApp()
+	util := utils.NewUtils()
 
-	// Create application with options
 	err := wails.Run(&options.App{
-		Title: "voxel",
-		//Width:  1024,
+		Title:  "voxel",
 		Width:  600,
 		Height: 708,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
 		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
+		OnStartup: func(ctx context.Context) {
+			app.startup(ctx)
+		},
+		OnShutdown: app.shutdown,
 		Bind: []interface{}{
 			app,
+			util,
 		},
 	})
 

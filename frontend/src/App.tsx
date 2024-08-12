@@ -5,9 +5,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { AiOutlineCopy, AiOutlineLink, AiOutlineFile, AiOutlineFileImage, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { MdContentPaste } from "react-icons/md";
 import { GetAllClipBoardItems, AddClipBoardItem, DeleteClipBoardItem, GetClipboardContent } from "../wailsjs/go/main/App";
+import { EventsOn } from "../wailsjs/runtime/runtime"
 import { ClipboardItemDbRow } from './types/clipboard';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+
 
 interface LinkMetadata {
     title: string | null;
@@ -22,6 +24,15 @@ const ClipboardManager: React.FC = () => {
 
     useEffect(() => {
         fetchClipboardItems();
+
+        const unsubscribe = EventsOn("newClipboardData", async () => {
+            await fetchClipboardItems()
+        })
+
+        return () => {
+            if (unsubscribe) unsubscribe();
+        };
+
     }, []);
 
     const fetchClipboardItems = async () => {
@@ -32,6 +43,13 @@ const ClipboardManager: React.FC = () => {
             console.error("Error fetching clipboard items:", err);
         }
     };
+
+    // Events.On("newCLipboardData", async () => {
+    //     await fetchClipboardItems()
+    // })
+
+
+
 
     const addNewItem = async () => {
         if (newItemContent.trim()) {

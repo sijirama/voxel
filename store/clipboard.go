@@ -35,7 +35,7 @@ func GetClipboardItemById(id int) (ClipboardItemDbRow, error) {
 
 // GetAllClipboardItems retrieves all clipboard items from the database.
 func GetAllClipboardItems() ([]ClipboardItemDbRow, error) {
-	rows, err := store.Query("SELECT id, content, timestamp, type, categories FROM clipboard_items")
+	rows, err := store.Query("SELECT id, content, timestamp, type, categories FROM clipboard_items ORDER BY timestamp DESC")
 	if err != nil {
 		return nil, err
 	}
